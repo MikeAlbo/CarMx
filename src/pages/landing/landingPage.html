@@ -1,45 +1,17 @@
 <ion-slides pager="true" parallax="true">
   <ion-slide>
-  <ion-grid text-center>
-    <ion-row>
-      <ion-col>
-        <h1>Car MX</h1><br>
-        <p text-wrap>Track your mileage,<br>schedule your maintenance.</p>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-8 offset-2>
-        <ion-list text-center>
-          <ion-item text-center>
-            <h2>Sign In</h2>
-          </ion-item>
-          <ion-item text-center>
-
-            <button ion-button full round icon-left large color="danger" (click)="loginViaGoogle()">
-              <ion-icon name="logo-google" ></ion-icon>
-              Google
-            </button>
-          </ion-item>
-          <ion-item text-center>
-            <p>- or -</p>
-            <h2>via email and password:</h2>
-          </ion-item>
-          <ion-item>
-            <ion-label>Email:</ion-label>
-            <ion-input type="email" [(ngModel)]="userCredentials.email"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Password:</ion-label>
-            <ion-input type="password" [(ngModel)] = "userCredentials.password"></ion-input>
-          </ion-item>
-          <button ion-button full color="primary" (click)="loginViaEmail()">Log in</button>
-          <button ion-button clear color="primary" (click)="showModal()">Don't have an account?</button>
-
-        </ion-list>
-      </ion-col>
-    </ion-row>
-
-  </ion-grid>
+  <ion-list no-border>
+    <ion-item text-center>
+      <h1>Car MX</h1>
+      <p>Track your mileage. Schedule your maintenance.</p>
+    </ion-item>
+    <ion-item>
+      <button ion-button full large (click)="showLoginModal()">Login</button>
+    </ion-item>
+    <ion-item>
+      <button ion-button clear full text-center (click)="showRegisterModal()">Sign up for a free account</button>
+    </ion-item>
+  </ion-list>
     <button ion-button clear color="primary" icon-right (click)="changeSlide()">
       Learn More
       <ion-icon name="arrow-dropright"></ion-icon>
@@ -51,34 +23,4 @@
     <button ion-button color="dark" round (click)="loginViaAnonymously()">Try out the app</button>
     <button ion-button (click)="changeSlide()" color="secondary">Back</button>
   </ion-slide>
-  <!--<ion-slide>-->
-    <!--<ion-grid>-->
-      <!--<ion-row>-->
-        <!--<ion-col>-->
-          <!--<h1>Car MX</h1>-->
-        <!--</ion-col>-->
-      <!--</ion-row>-->
-      <!--<ion-row>-->
-        <!--<ion-col>-->
-          <!--<ion-list>-->
-            <!--<ion-item>-->
-              <!--<p>Register for a free account.</p>-->
-            <!--</ion-item>-->
-            <!--<ion-item>-->
-              <!--<ion-label>Email:</ion-label>-->
-              <!--<ion-input type="email" [(ngModel)]="userCredentials.email"></ion-input>-->
-            <!--</ion-item>-->
-            <!--<ion-item>-->
-              <!--<ion-label>Password:</ion-label>-->
-              <!--<ion-input type="password" [(ngModel)] = "userCredentials.password"></ion-input>-->
-            <!--</ion-item>-->
-            <!--<ion-item>-->
-              <!--<ion-label>Verify Password:</ion-label>-->
-              <!--<ion-input type="password" [(ngModel)] = "userCredentials.password"></ion-input>-->
-            <!--</ion-item>-->
-          <!--</ion-list>-->
-        <!--</ion-col>-->
-      <!--</ion-row>-->
-    <!--</ion-grid>-->
-  <!--</ion-slide>-->
 </ion-slides>

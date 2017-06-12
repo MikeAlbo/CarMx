@@ -10,7 +10,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { MyApp } from './app.component';
-import { HomePage, LandingPage, SettingsPage, AuthModal } from '../pages/pages';
+import { HomePage, LandingPage, SettingsPage, AuthModal, LoginModal } from '../pages/pages';
 import {AuthApi} from '../services/services';
 
 @NgModule({
@@ -19,7 +19,8 @@ import {AuthApi} from '../services/services';
     HomePage,
     LandingPage,
     SettingsPage,
-    AuthModal
+    AuthModal,
+    LoginModal
   ],
   imports: [
     BrowserModule,
@@ -34,7 +35,8 @@ import {AuthApi} from '../services/services';
     HomePage,
     LandingPage,
     SettingsPage,
-    AuthModal
+    AuthModal,
+    LoginModal
   ],
   providers: [
     StatusBar,

@@ -4,7 +4,7 @@ import {NavController, Slides, ModalController, AlertController} from 'ionic-ang
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
-import {AuthModal} from '../pages';
+import {AuthModal, LoginModal} from '../pages';
 import {AuthApi} from '../../services/services';
 
 @Component({
@@ -30,21 +30,15 @@ userCredentials = {email:null, password: null};
     this.slides.getActiveIndex() === 0 ? this.slides.slideNext() : this.slides.slidePrev();
   }
 
-  showModal(){
+  showRegisterModal(){
     let authModal = this.modalCtrl.create(AuthModal);
     authModal.present();
   }
 
-  loginViaEmail(){
-    //this.authApi.login("password", this.userCredentials.email, this.userCredentials.password);
-    this.AfAuth.auth.signInWithEmailAndPassword(this.userCredentials.email, this.userCredentials.password)
-      .catch((err)=>{console.log(err)}); // handle err
-}
-
-  loginViaGoogle(){
-    // this.authApi.login("google", null, null);
-    this.AfAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-}
+  showLoginModal(){
+    let loginModal = this.modalCtrl.create(LoginModal);
+    loginModal.present();
+  }
 
   loginViaAnonymously(){
     let alert = this.alertCtrl.create({

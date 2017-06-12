@@ -1,10 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, Slides, ViewController} from 'ionic-angular';
+import {NavController, Slides, ViewController, ModalController} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
 //import * as firebase from 'firebase/app';
 
 import {EmailValidator, PasswordValidator} from '../../validators/validators';
+import {LoginModal} from '../pages';
 
 @Component({
   selector: 'auth-modal',
@@ -23,7 +24,8 @@ export class AuthModal {
   constructor(private navCtrl: NavController,
               private viewCtrl: ViewController,
               private AfAuth: AngularFireAuth,
-              public formBuilder: FormBuilder){
+              public formBuilder: FormBuilder,
+              private modalCtrl: ModalController){
 
     this.registerForm = formBuilder.group({
       email: ['', Validators.compose([EmailValidator.isValid, Validators.required])],
@@ -43,6 +45,13 @@ export class AuthModal {
     this.viewCtrl.dismiss();
   }
 
+  loadLoginModal(){
+    this.viewCtrl.dismiss().then(()=>{
+      let loginModal = this.modalCtrl.create(LoginModal);
+      loginModal.present();
+    })
+  }
+
   onSuccessSubmission(){
     this.registerForm.reset(); // resets the form values
   }
@@ -53,7 +62,7 @@ export class AuthModal {
     if(this.registerForm.valid){
       this.AfAuth.auth.createUserWithEmailAndPassword(this.registerForm.controls.email.value, this.registerForm.controls.password.value)
         .then((user)=> {
-          console.log(user);
+          console.log(user); // !! remove before production !!
           this.dismissModal();
           this.onSuccessSubmission();
         })

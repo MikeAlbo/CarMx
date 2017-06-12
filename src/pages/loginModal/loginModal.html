@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Login
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismissModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-list>
+        <ion-item text-center>
+          <p> - use your google account - </p>
+        </ion-item>
+        <ion-item>
+          <button ion-button full large  color="danger" icon-left (click)="loginViaGoogle()">
+            <ion-icon name="logo-google"></ion-icon>
+            Google
+          </button>
+        </ion-item>
+        <ion-item text-center>
+          <p>- Email and Password -</p>
+        </ion-item>
+        <form [formGroup]="loginForm">
+          <ion-item [class.invalid]="(loginForm.controls.email.invalid && loginForm.controls.email.dirty)" [class.valid]="(loginForm.controls.email.valid && loginForm.controls.email.dirty)">
+            <ion-label>Email:</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item [class.invalid]="(loginForm.controls.password.invalid && loginForm.controls.password.dirty)" [class.valid]="(loginForm.controls.password.valid && loginForm.controls.password.dirty)">
+            <ion-label>Password:</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </ion-item>
+        </form>
+
+        <ion-item [hidden]="!loginForm.dirty">
+          <button ion-button full large  color="primary" [disabled]="loginForm.invalid">Login</button>
+        </ion-item>
+        <ion-item text-center>
+          <button ion-button clear color="primary" (click)="loadRegisterModal()">Need an Account?</button>
+        </ion-item>
+
+        <ion-item [hidden]="loginForm.valid">
+          <p class="errorMessage" *ngIf="(loginForm.controls.email.dirty && loginForm.controls.email.invalid)">Please enter a valid email</p>
+          <p class="errorMessage" *ngIf="(loginForm.controls.password.dirty && loginForm.controls.password.invalid)" text-wrap>Password must be between 6-12 characters, contain at least 1 uppercase character, 1 lowercase character, and 1 number</p>
+          <p class="errorMessage" *ngIf="(errorMessage)">{{errorMessage}}</p>
+        </ion-item>
+      </ion-list>
+
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>
