@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Register
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismissModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+ <ion-grid text-center>
+   <ion-row>
+     <ion-col>
+       <h1>Car MX</h1>
+     </ion-col>
+   </ion-row>
+   <ion-row>
+     <ion-col>
+       <ion-list>
+         <ion-item text-center>
+           <p text-wrap>register for a free account</p>
+         </ion-item>
+         <form [formGroup]="registerForm">
+           <ion-item [class.invalid]="(!registerForm.controls.email.valid && registerForm.controls.email.dirty)" [class.valid]="(registerForm.controls.email.valid && registerForm.controls.email.dirty)">
+             <ion-label>Email:</ion-label>
+             <ion-input type="email" formControlName="email"></ion-input>
+           </ion-item>
+           <ion-item [class.invalid]="(!registerForm.controls.password.valid && registerForm.controls.password.dirty)" [class.valid]="(registerForm.controls.password.valid && registerForm.controls.password.dirty)">
+             <ion-label>Password:</ion-label>
+             <ion-input id="password" type="password" formControlName="password"></ion-input>
+           </ion-item>
+           <ion-item [class.invalid]="(!registerForm.controls.confirmPassword.valid && registerForm.controls.confirmPassword.dirty)" [class.valid]="(registerForm.controls.confirmPassword.valid && registerForm.controls.confirmPassword.dirty)">
+             <ion-label> Confirm:</ion-label>
+             <ion-input [disabled]="registerForm.controls.password.invalid" id="confirmPassword" type="password" formControlName="confirmPassword"></ion-input>
+           </ion-item>
+         </form>
+       </ion-list>
+     </ion-col>
+   </ion-row>
+   <ion-row>
+     <ion-col>
+       <button ion-button full color="primary" (click)="registeruser()" [disabled]="registerForm.invalid">Register!</button><br>
+       <button ion-button clear color="primary" (click)="dismissModal()">Already have an account?</button>
+     </ion-col>
+   </ion-row>
+   <ion-row>
+     <ion-col>
+       <ion-list *ngIf="(registerForm.invalid && registerForm.touched) || errorMessage">
+         <ion-item>
+           <p class="errorMessage" *ngIf="(registerForm.controls.email.invalid && registerForm.controls.email.dirty  )">Please enter a valid email</p>
+           <p class="errorMessage" *ngIf="(registerForm.controls.password.invalid && registerForm.controls.password.dirty && registerForm.controls.password.touched )"text-wrap>Password must be between 6-12 characters, contain at least 1 uppercase character, 1 lowercase character, and 1 number</p>
+           <p class="errorMessage" *ngIf="(registerForm.controls.confirmPassword.invalid && registerForm.controls.confirmPassword.dirty )">Passwords do not match</p>
+           <p *ngIf="errorMessage" class="errorMessage" text-wrap>{{errorMessage}}</p>
+         </ion-item>
+       </ion-list>
+     </ion-col>
+   </ion-row>
+ </ion-grid>
+</ion-content>

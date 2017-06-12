@@ -1,0 +1,19 @@
+auth-modal {
+  ion-item {
+    margin: 2px 0 !important;
+  }
+  .invalid {
+    border: $invalidInputBorder;
+    border-radius: $formInputBorderRadius;
+  }
+
+  .valid {
+    border: $validInputBorder;
+    border-radius: $formInputBorderRadius;
+  }
+
+  .errorMessage {
+    color: rgb(200, 56, 52);
+    text-align: center;
+  }
+}

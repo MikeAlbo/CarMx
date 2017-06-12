@@ -31,6 +31,10 @@ $colors: (
   dark:       #222
 );
 
+//forn validation colors
+$invalidInputBorder:   1px solid rgba(255, 32, 27, 0.4);
+$validInputBorder: 1px solid rgba(43, 200, 72, 0.4);
+$formInputBorderRadius: 5px;
 
 // App iOS Variables
 // --------------------------------------------------
