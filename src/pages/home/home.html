@@ -4,8 +4,8 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-buttons end>
-      <button ion-button clear icon-only>
-        <ion-icon name="settings" color="dark"></ion-icon>
+      <button ion-button clear (click)="reorder()">
+        {{navButton}}
       </button>
     </ion-buttons>
     <ion-title>
@@ -15,8 +15,18 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list reorder="false" *ngFor="let item of testData">
-    <ion-card ion-item *ngIf="item.sectionTitle == 'Gas'">
+  <ion-row  *ngIf="showReorder || data.length < 3">
+    <ion-col text-center>
+      <button ion-button clear block icon-right color="secondary">
+        Add section
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <ion-list reorder="{{showReorder}}" (ionItemReorder)="reorderItems($event)">
+    <div *ngFor="let item of data">
+    <ion-card margin-top ion-item *ngIf="item.sectionTitle == 'Gas'">
       <ion-card-header no-padding>
         <ion-card-title >{{item.sectionTitle}}</ion-card-title>
       </ion-card-header>
@@ -31,11 +41,11 @@
         </ion-grid>
       </ion-card-content>
     </ion-card>
-    <ion-card ion-item  *ngIf="item.sectionTitle == 'Alerts'">
+    <ion-card margin-top ion-item  *ngIf="item.sectionTitle == 'Alerts'">
       <ion-card-header no-padding>
         <ion-card-title >{{item.sectionTitle}} ({{item.contents.length}})</ion-card-title>
       </ion-card-header>
-      <ion-card-content padding>
+      <ion-card-content padding class="sublistItems">
         <ion-list *ngFor="let alert of item.contents; let i = index">
           <button ion-item *ngIf="i < 3">
             {{alert}}
@@ -43,7 +53,7 @@
         </ion-list>
       </ion-card-content>
     </ion-card>
-    <ion-card ion-item *ngIf="item.sectionTitle == 'MX'">
+    <ion-card margin-top ion-item *ngIf="item.sectionTitle == 'MX'">
         <ion-card-header no-padding>
           <button ion-button float-end small clear>
             <ion-icon name="close"></ion-icon>
@@ -74,9 +84,13 @@
         </ion-list>
       </ion-card-content>
     </ion-card>
+    </div>
   </ion-list>
 
-  <ion-fab right bottom>
+
+
+
+  <ion-fab right bottom *ngIf="!showReorder">
     <button ion-fab color="secondary"><ion-icon name="car"></ion-icon></button>
     <ion-fab-list side="left">
       <button ion-fab color="danger"><ion-icon name="warning"></ion-icon></button>
@@ -84,5 +98,5 @@
       <button ion-fab color="secondary"><ion-icon name="add"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
-  
+
 </ion-content>

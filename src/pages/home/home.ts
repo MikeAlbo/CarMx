@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, reorderArray} from 'ionic-angular';
 
 import {AuthApi} from '../../services/services';
 
@@ -8,6 +8,7 @@ import {AuthApi} from '../../services/services';
   templateUrl: 'home.html'
 })
 export class HomePage {
+
 
   testData = [
     {
@@ -34,9 +35,24 @@ export class HomePage {
     }
   ];
 
+  data = this.testData;
+  showReorder: boolean = false;
+  navButton: string = "Edit";
+
+
   constructor(public navCtrl: NavController, private authApi: AuthApi) {
 
   }
 
+  reorderItems(indexes) {
+    this.data = reorderArray(this.data, indexes);
+  }
+
+  reorder(){
+    this.showReorder = !this.showReorder;
+    this.navButton = this.navButton === "Edit" ? "Done" : "Edit";
+  }
+
 
 }
+
