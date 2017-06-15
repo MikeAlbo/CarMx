@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {NavController, Slides, ViewController, ModalController} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
-//import * as firebase from 'firebase/app';
+import * as firebase from 'firebase/app';
 
 import {EmailValidator, PasswordValidator} from '../../validators/validators';
 import {LoginModal} from '../pages';
@@ -54,6 +54,12 @@ export class AuthModal {
 
   onSuccessSubmission(){
     this.registerForm.reset(); // resets the form values
+  }
+
+  loginViaGoogle(){
+    this.AfAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((user)=> {
+      this.dismissModal();
+    } );
   }
 
   registeruser(){

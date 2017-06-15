@@ -39,17 +39,17 @@
           </ion-item>
         </form>
 
-        <ion-item [hidden]="!loginForm.dirty">
-          <button ion-button full large  color="primary" [disabled]="loginForm.invalid">Login</button>
+        <ion-item>
+          <button ion-button full large  color="primary" [disabled]="loginForm.invalid" (click)="loginViaEmail()">Login</button>
         </ion-item>
         <ion-item text-center>
           <button ion-button clear color="primary" (click)="loadRegisterModal()">Need an Account?</button>
         </ion-item>
 
-        <ion-item [hidden]="loginForm.valid">
+        <ion-item [hidden]="(!loginForm.valid || !errorMessage)">
           <p class="errorMessage" *ngIf="(loginForm.controls.email.dirty && loginForm.controls.email.invalid)">Please enter a valid email</p>
           <p class="errorMessage" *ngIf="(loginForm.controls.password.dirty && loginForm.controls.password.invalid)" text-wrap>Password must be between 6-12 characters, contain at least 1 uppercase character, 1 lowercase character, and 1 number</p>
-          <p class="errorMessage" *ngIf="(errorMessage)">{{errorMessage}}</p>
+          <p class="errorMessage" *ngIf="(errorMessage)" text-wrap>{{errorMessage}}</p>
         </ion-item>
       </ion-list>
 

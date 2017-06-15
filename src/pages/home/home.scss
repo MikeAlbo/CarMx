@@ -1,3 +1,31 @@
 page-home {
+  ion-card-title {
+    font-size: .75em !important;
+    color: #71797d !important;
+  }
+
+  h3 {
+    font-size: 3em !important;
+  }
+
+  p{
+    font-size: 1.2em !important;
+  }
+
+
+  .mxValues {
+    font-size: 1em !important;
+  }
+
+
+    .sublistItems ion-reorder {
+      visibility: hidden !important;
+    }
+
+    .sublistItems ion-item {
+      border-top: 1px solid rgba(100,100,100,.1);
+      border-bottom: 1px solid rgba(100,100,100,.1);
+    }
+
 
 }

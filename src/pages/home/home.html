@@ -1,16 +1,88 @@
 <ion-header>
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-buttons end>
+      <button ion-button clear icon-only>
+        <ion-icon name="settings" color="dark"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>
-      Ionic Blank
+      Car MX
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-list reorder="false" *ngFor="let item of testData">
+    <ion-card ion-item *ngIf="item.sectionTitle == 'Gas'">
+      <ion-card-header no-padding>
+        <ion-card-title >{{item.sectionTitle}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content text-center no-padding>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h3>{{item.content.primaryLabel}} {{item.content.primaryValue}} {{item.content.units}}</h3>
+              <p>{{item.content.secondaryLabel}} {{item.content.secondaryValue}} {{item.content.units}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <ion-card ion-item  *ngIf="item.sectionTitle == 'Alerts'">
+      <ion-card-header no-padding>
+        <ion-card-title >{{item.sectionTitle}} ({{item.contents.length}})</ion-card-title>
+      </ion-card-header>
+      <ion-card-content padding>
+        <ion-list *ngFor="let alert of item.contents; let i = index">
+          <button ion-item *ngIf="i < 3">
+            {{alert}}
+          </button>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+    <ion-card ion-item *ngIf="item.sectionTitle == 'MX'">
+        <ion-card-header no-padding>
+          <button ion-button float-end small clear>
+            <ion-icon name="close"></ion-icon>
+          </button>
+          <ion-card-title>{{item.sectionTitle}} ({{item.contents.length}})</ion-card-title>
 
-  <button ion-button color="danger" (click)="logoutCurrentUser()">Logout</button>
+        </ion-card-header>
+      <ion-card-content padding class="sublistItems">
+        <ion-list *ngFor="let mx of item.contents; let j = index">
+            <ion-item-sliding *ngIf="j < 4">
+              <ion-item>
+                {{mx.mx}}
+                <span float-end>
+                  <p class="mxValues">{{mx.val}}</p>
+                </span>
+              </ion-item>
+              <ion-item-options side="right">
+                <button ion-button color="secondary">
+                  Schedule
+                  <ion-icon name="time"></ion-icon>
+                </button>
+                <button ion-button color="danger">
+                  Reset
+                  <ion-icon name="refresh"></ion-icon>
+                </button>
+              </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-fab right bottom>
+    <button ion-fab color="secondary"><ion-icon name="car"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab color="danger"><ion-icon name="warning"></ion-icon></button>
+      <button ion-fab color="danger"><ion-icon name="alert"></ion-icon></button>
+      <button ion-fab color="secondary"><ion-icon name="add"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+  
 </ion-content>

@@ -22,7 +22,16 @@
      <ion-col>
        <ion-list>
          <ion-item text-center>
-           <p text-wrap>register for a free account</p>
+           <p> - register with your Google account - </p>
+         </ion-item>
+         <ion-item>
+           <button ion-button full large  color="danger" icon-left (click)="loginViaGoogle()">
+             <ion-icon name="logo-google"></ion-icon>
+             Google
+           </button>
+         </ion-item>
+         <ion-item text-center>
+           <p> - or, via email - </p>
          </ion-item>
          <form [formGroup]="registerForm">
            <ion-item [class.invalid]="(!registerForm.controls.email.valid && registerForm.controls.email.dirty)" [class.valid]="(registerForm.controls.email.valid && registerForm.controls.email.dirty)">

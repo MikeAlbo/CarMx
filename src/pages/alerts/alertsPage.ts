@@ -2,11 +2,11 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, LoadingController} from 'ionic-angular';
 
 @Component({
-  selector: 'settings-page',
-  templateUrl: 'settingsPage.html'
+  selector: 'alerts-page',
+  templateUrl: 'alertsPage.html'
 })
 
-export class SettingsPage {
+export class AlertsPage {
 
   constructor(private nacCtrl: NavController,
               private navParams: NavParams,
