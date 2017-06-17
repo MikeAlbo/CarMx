@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-buttons end>
+      <button ion-button clear icon-only>
+        <ion-icon name="settings" color="dark"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Car MX | Fuel
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <h1 text-center>Fuel Page DB demo </h1>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Odometer</ion-label>
+      <ion-input type="text" [ngModel]="newTrip.odometer"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fuel Purchased</ion-label>
+      <ion-input type="text" [ngModel]="newTrip.fuel"></ion-input>
+    </ion-item>
+    <button type="submit" ion-button block (click)="addNewTrip()">Add Fuel</button>
+  </ion-list>
+
+  <ion-list *ngFor="let trip of fuelLog | async">
+    <ion-card text-center>
+      <h1>{{trip.fuel || "no data"}}</h1>
+      <p>{{trip.odometer || "no data"}}</p>
+    </ion-card>
+    <ion-card *ngIf="fuelLog.length < 1">
+      <h1>No Data in Log</h1>
+    </ion-card>
+  </ion-list>
+</ion-content>

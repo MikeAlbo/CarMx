@@ -3,7 +3,7 @@ import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import {LandingPage, HomePage, AlertsPage, ServiceProviderPage, MaintenancePage, SettingsPage} from '../pages/pages';
+import {LandingPage, HomePage, AlertsPage, ServiceProviderPage, MaintenancePage, SettingsPage, FuelPage} from '../pages/pages';
 import {AngularFireAuth} from 'angularfire2/auth';
 
 @Component({
@@ -47,6 +47,7 @@ export class MyApp {
       case "maintenance" : this.nav.push(MaintenancePage); break;
       case "home" : this.nav.setRoot(HomePage); break;
       case "settings" : this.nav.push(SettingsPage); break;
+      case "fuel" : this.nav.push(FuelPage); break;
       case "logOut" : this.authApi.auth.signOut(); break;
       default: this.nav.setRoot(HomePage); break;
     }
