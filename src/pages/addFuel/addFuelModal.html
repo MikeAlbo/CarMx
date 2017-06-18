@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Add Fuel
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismissModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid trext-center>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item text-center>
+            <h2>Add Fuel</h2>
+            <p text-wrap>Enter your current Odometer reading and the amount of fuel purchased.</p>
+          </ion-item>
+          <form [formGroup]="addFuelForm" onsubmit="addFuel()">
+            <ion-item [class.invalid]="(!addFuelForm.controls.odometer.valid && addFuelForm.controls.odometer.dirty)" [class.valid]="(addFuelForm.controls.odometer.valid && addFuelForm.controls.odometer.dirty)">
+              <ion-label>Odometer: </ion-label>
+              <ion-input type="text" formControlName="odometer"></ion-input>
+            </ion-item>
+            <ion-item [class.invalid]="(!addFuelForm.controls.amount.valid && addFuelForm.controls.amount.dirty)" [class.valid]="(addFuelForm.controls.amount.valid && addFuelForm.controls.amount.dirty)">
+              <ion-label>Amount: </ion-label>
+              <ion-input type="text" formControlName="amount"></ion-input>
+            </ion-item>
+            <button ion-button full type="submit" [disabled]="addFuelForm.controls.amount.invalid || addFuelForm.controls.odometer.invalid ">Add</button>
+
+          </form>
+
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

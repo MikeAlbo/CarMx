@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, reorderArray} from 'ionic-angular';
+import { NavController, reorderArray, ModalController, FabContainer} from 'ionic-angular';
 
 import {AuthApi} from '../../services/services';
+import {AddFuelModal, AlertsPage, MaintenancePage} from '../pages';
 
 @Component({
   selector: 'page-home',
@@ -40,7 +41,9 @@ export class HomePage {
   navButton: string = "Edit";
 
 
-  constructor(public navCtrl: NavController, private authApi: AuthApi) {
+  constructor(public navCtrl: NavController,
+              private authApi: AuthApi,
+              private modalCtrl: ModalController) {
 
   }
 
@@ -53,6 +56,22 @@ export class HomePage {
     this.navButton = this.navButton === "Edit" ? "Done" : "Edit";
   }
 
+  showAddFuelModal(){
+    let addFuelModal = this.modalCtrl.create(AddFuelModal);
+    addFuelModal.present();
+  }
+
+  navToPage(page, fab: FabContainer){
+    switch (page){
+      case 'alert' : this.navCtrl.push(AlertsPage); break;
+      case 'mx' : this.navCtrl.push(MaintenancePage); break;
+      default: this.navCtrl.push(HomePage);
+    }
+
+    fab.close();
+
+
+  }
 
 }
 

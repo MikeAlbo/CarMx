@@ -1,5 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, LoadingController} from 'ionic-angular';
+import {NavController, NavParams, LoadingController, AlertController, ModalController} from 'ionic-angular';
+
+import {AddFuelModal} from '../pages';
+
+import {IntValidator} from  '../../validators/validators';
 
 import {FuelService} from '../../services/services';
 
@@ -15,10 +19,12 @@ export class FuelPage {
 
   fuelLog: any;
 
-  constructor(private nacCtrl: NavController,
+  constructor(private navCtrl: NavController,
               private navParams: NavParams,
               private loadingCtrl: LoadingController,
-              private fuelService: FuelService){
+              private fuelService: FuelService,
+              private alertCtrl: AlertController,
+              private modalCtrl: ModalController ){
 
     this.fuelLog = this.fuelService.fuelLog;
   }
@@ -34,6 +40,11 @@ export class FuelPage {
       console.log(this.fuelLog);
       //this.resetNewTrip();
     }
+  }
+
+  showAddFuelPopup(){
+    let addFuelModal = this.modalCtrl.create(AddFuelModal);
+    addFuelModal.present();
   }
 
 

@@ -37,5 +37,17 @@ class PasswordValidator {
   }
 }
 
+class IntValidator {
+  static isInt(control: FormControl): any {
+    const intRegex = /^\d+$/;
+    if(intRegex.test(control.value)){
+      return null;
+    } else {
+      return {"please only enter numbers, with no spaces": true};
+    }
 
-export {EmailValidator, PasswordValidator};
+  }
+}
+
+
+export {EmailValidator, PasswordValidator, IntValidator};

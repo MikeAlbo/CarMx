@@ -87,16 +87,12 @@
     </div>
   </ion-list>
 
-
-
-
-  <ion-fab right bottom *ngIf="!showReorder">
+  <ion-fab right bottom *ngIf="!showReorder" #fab>
     <button ion-fab color="secondary"><ion-icon name="car"></ion-icon></button>
     <ion-fab-list side="left">
-      <button ion-fab color="danger"><ion-icon name="warning"></ion-icon></button>
-      <button ion-fab color="danger"><ion-icon name="alert"></ion-icon></button>
-      <button ion-fab color="secondary"><ion-icon name="add"></ion-icon></button>
+      <button ion-fab color="danger" (click)="navToPage('mx', fab)"><ion-icon name="warning"></ion-icon></button>
+      <button ion-fab color="danger" (click)="navToPage('alert', fab)"><ion-icon name="alert"></ion-icon></button>
+      <button ion-fab color="secondary" (click)="showAddFuelModal()"><ion-icon name="add"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
-
 </ion-content>

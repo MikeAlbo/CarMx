@@ -10,7 +10,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { MyApp } from './app.component';
-import { HomePage, LandingPage, SettingsPage, AuthModal, LoginModal, ServiceProviderPage, AlertsPage, MaintenancePage, FuelPage} from '../pages/pages';
+import { HomePage, LandingPage, SettingsPage, AuthModal, LoginModal, ServiceProviderPage, AlertsPage, MaintenancePage, FuelPage, AddFuelModal} from '../pages/pages';
 import {AuthApi,FuelService} from '../services/services';
 
 @NgModule({
@@ -24,7 +24,8 @@ import {AuthApi,FuelService} from '../services/services';
     MaintenancePage,
     ServiceProviderPage,
     AlertsPage,
-    FuelPage
+    FuelPage,
+    AddFuelModal
   ],
   imports: [
     BrowserModule,
@@ -44,7 +45,8 @@ import {AuthApi,FuelService} from '../services/services';
     MaintenancePage,
     ServiceProviderPage,
     AlertsPage,
-    FuelPage
+    FuelPage,
+    AddFuelModal
   ],
   providers: [
     StatusBar,
