@@ -14,5 +14,52 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <h1 text-center>Setting Page </h1>
+ <ion-slides pager="true">
+   <ion-slide>
+     <ion-list>
+       <form [formGroup]="settingForm">
+         <ion-item>
+           <ion-label>Name: </ion-label>
+           <ion-input type="text" formControlName="name"></ion-input>
+         </ion-item>
+         <ion-item>
+           <ion-label>Email: </ion-label>
+           <ion-input [disabled]="emailDisabled" type="text" formControlName="email" placeholder="{{this.dataApi.currentUser.email}}"></ion-input>
+         </ion-item>
+         <ion-item>
+           <p text-center>password reset, notifications, delete data</p>
+         </ion-item>
+         <button ion-button block  type="submit" (click)="submitSettingsForm()">{{newUser ? "Add Info" : "Update Info"}}</button>
+       </form>
+
+       <button ion-button clear icon-right text-center (click)="changeSlide()">
+         Vehicles
+         <ion-icon name="arrow-dropright"></ion-icon>
+       </button>
+     </ion-list>
+   </ion-slide>
+   <ion-slide>
+         <p *ngIf="!userVehicles">you currently have no vehicles</p>
+     <ion-list *ngIf="userVehicles">
+       <ion-item *ngFor="let vehicle of userVehicles">
+         <h2>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}}</h2>
+         <p>{{vehicle.odometer}}</p>
+       </ion-item>
+     </ion-list>
+     <button ion-button clear icon-right>
+       add
+       <ion-icon name="add"></ion-icon>
+     </button>
+     <ion-list>
+       <form>
+         <ion-item>
+           <ion-label>Year: </ion-label>
+           <ion-select>
+             <ion-option *ngFor="let year of vehicleInfo.years" value="{{year}}">{{year}}</ion-option>
+           </ion-select>
+         </ion-item>
+       </form>
+     </ion-list>
+   </ion-slide>
+ </ion-slides>
 </ion-content>

@@ -6,6 +6,7 @@ import * as firebase from 'firebase/app';
 
 import {EmailValidator, PasswordValidator} from '../../validators/validators';
 import {LoginModal} from '../pages';
+import {SettingsPage} from "../settings/settingsPage";
 
 @Component({
   selector: 'auth-modal',

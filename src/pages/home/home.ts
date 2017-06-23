@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, reorderArray, ModalController, FabContainer} from 'ionic-angular';
 
-import {AuthApi} from '../../services/services';
+import {DataService, FuelService, UserApi} from '../../services/services';
 import {AddFuelModal, AlertsPage, MaintenancePage} from '../pages';
+import {SettingsPage} from "../settings/settingsPage";
 
 @Component({
   selector: 'page-home',
@@ -10,7 +11,7 @@ import {AddFuelModal, AlertsPage, MaintenancePage} from '../pages';
 })
 export class HomePage {
 
-
+  otherData;
   testData = [
     {
       sectionTitle: "Gas",
@@ -42,8 +43,12 @@ export class HomePage {
 
 
   constructor(public navCtrl: NavController,
-              private authApi: AuthApi,
-              private modalCtrl: ModalController) {
+              public dataApi: DataService,
+              private modalCtrl: ModalController,
+              private fuelApi: FuelService,
+              private userApi: UserApi) {
+
+    this.otherData = this.fuelApi.fakeData;
 
   }
 
@@ -57,7 +62,7 @@ export class HomePage {
   }
 
   showAddFuelModal(){
-    let addFuelModal = this.modalCtrl.create(AddFuelModal);
+    let addFuelModal = this.modalCtrl.create(AddFuelModal, this.otherData);
     addFuelModal.present();
   }
 
@@ -73,5 +78,9 @@ export class HomePage {
 
   }
 
+
+  showSettingsPage() {
+    //this.navCtrl.push(SettingsPage, {newUser: true});
+    }
 }
 

@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import {LandingPage, HomePage, AlertsPage, ServiceProviderPage, MaintenancePage, SettingsPage, FuelPage} from '../pages/pages';
+
+import {DataService} from '../services/services';
 import {AngularFireAuth} from 'angularfire2/auth';
 
 @Component({
@@ -28,11 +30,14 @@ export class MyApp {
       authApi.authState.subscribe((user)=>{
         if(user){
           this.rootPage = HomePage;
+
         } else {
           this.rootPage = LandingPage;
         }
       })
+
     });
+
 
     this.vehicles = [
       { title: '2006 BMW 325 xi', component: HomePage },

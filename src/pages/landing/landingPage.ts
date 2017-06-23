@@ -5,7 +5,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
 import {AuthModal, LoginModal} from '../pages';
-import {AuthApi} from '../../services/services';
 
 @Component({
   selector: 'page-landing',
@@ -20,7 +19,6 @@ userCredentials = {email:null, password: null};
 
   constructor(private navCtrl: NavController,
               private modalCtrl: ModalController,
-              private authApi: AuthApi,
               private alertCtrl: AlertController,
               private AfAuth: AngularFireAuth){
 
