@@ -9,20 +9,15 @@ export class UserApi {
   public currentUser;
   private ref;
 
-  constructor(private authApi: AngularFireAuth, private db : AngularFireDatabase){
+  constructor(public authApi: AngularFireAuth, private db : AngularFireDatabase){
       authApi.authState.subscribe((user)=>{
         this.currentUser = user ? user: null;
         this.ref = `/users/${this.currentUser.uid}/`;
       });
   } // constructor
 
-  //get current user
-  getCurrentUser(){
-    return this.currentUser;
-  }
-
   // add a new user
-  addNewUser(user){
+  addNewUser(user: object){
     return new Promise((resolve, reject)=>{
       this.db.object(this.ref).update(user).then(()=>{
         resolve();
@@ -33,7 +28,7 @@ export class UserApi {
   }
 
   // add user settings
-  addUserSettings(settings){
+  addUserSettings(settings: object){
     return new Promise((resolve, reject)=>{
       this.db.object(`${this.ref}/settings/`).set(settings).then(()=>{
         resolve();
@@ -44,7 +39,7 @@ export class UserApi {
   }
 
   // update user settings
-  updateUserSettings(settings){
+  updateUserSettings(settings: object){
     return new Promise((resolve, reject)=>{
       this.db.object(`${this.ref}/settings/`).set(settings).then(()=>{
         resolve();
@@ -55,9 +50,9 @@ export class UserApi {
   }
 
   // add a new vehicle
-  addANewVehicle(vehicle){
+  addNewVehicle(vehicleId: string, vehicle: object){
     return new Promise((resolve, reject)=>{
-      this.db.list(`${this.ref}/vehicles/`).push(vehicle).then((item)=>{
+      this.db.list(`${this.ref}/vehicles/${vehicleId}`).push(vehicle).then((item)=>{
         resolve(item.key);
       }).catch((err)=>{
         reject(err);
@@ -67,9 +62,9 @@ export class UserApi {
   }
 
   // delete a vehicle
-  deleteAVehicle(vehicleKey){
+  deleteAVehicle(vehicleKey: string){
     return new Promise((resolve, reject)=>{
-      this.db.list(`${this.ref}/vehicles/`).remove(vehicleKey).then(()=>{
+      this.db.object(`${this.ref}/vehicles/${vehicleKey}`).remove().then(()=>{
         resolve(true);
       }).catch((err)=>{
         reject(err);
@@ -85,6 +80,13 @@ export class UserApi {
       }).catch((err)=>{
         reject(err);
       });
+    });
+  }
+
+// a user can select which vehicle to view
+  setCurrentVehicle(vehicleId: string){
+    return new Promise((resolve, reject)=>{
+      this.db.object(`${this.ref}/currentVehicle`).update(vehicleId).then(()=> resolve(true)).catch(err => reject(err));
     });
   }
 

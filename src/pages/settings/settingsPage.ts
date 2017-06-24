@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {NavController, NavParams, LoadingController, Slides} from 'ionic-angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-import {DataService, VehicleInfo} from '../../services/services';
+import {UserApi, VehicleApi, VehicleInfo} from '../../services/services';
 
 
 @Component({
@@ -27,16 +27,18 @@ export class SettingsPage {
               private navParams: NavParams,
               private loadingCtrl: LoadingController,
               private formBuilder: FormBuilder,
-              private dataApi:DataService,
+              private userApi: UserApi,
+              private vehicleApi: VehicleApi,
               public vehicleInfo: VehicleInfo){
+
     this.settingForm = formBuilder.group({
       name: [''],
       email: ['']
     });
 
-    this.newUser = navParams.data.newUser;
+    //this.newUser = navParams.data.newUser;
 
-    if(this.dataApi.currentUser){
+    if(this.userApi.currentUser){
       this.emailDisabled = true;
       //this.userVehicles = this.dataApi.currentUserData['/vehicles'];
     }
@@ -48,9 +50,6 @@ export class SettingsPage {
       name: this.settingForm.controls.name.value,
       email: this.settingForm.controls.email.value
     };
-
-    //this.dataApi.updateUserSettings(settings);
-
   }
 
   changeSlide(){

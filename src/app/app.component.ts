@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import {LandingPage, HomePage, AlertsPage, ServiceProviderPage, MaintenancePage, SettingsPage, FuelPage} from '../pages/pages';
 
-import {DataService} from '../services/services';
+import {} from '../services/services';
 import {AngularFireAuth} from 'angularfire2/auth';
 
 @Component({
@@ -16,6 +16,8 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   vehicles: Array<{title: string, component: any}>;
+
+  currentUser;
 
 
   rootPage:any;
@@ -30,6 +32,7 @@ export class MyApp {
       authApi.authState.subscribe((user)=>{
         if(user){
           this.rootPage = HomePage;
+          this.currentUser = user;
 
         } else {
           this.rootPage = LandingPage;

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {ViewController} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {FuelService} from '../../services/services';
+import {VehicleApi} from '../../services/services';
 import {IntValidator} from '../../validators/validators';
 
 @Component({
@@ -16,7 +16,7 @@ export class AddFuelModal {
   submitAttempt: boolean = false;
   errorMessage: string = '';
 
-  constructor(private fuelService: FuelService,
+  constructor(private vehicleApi: VehicleApi,
               private viewCtrl: ViewController,
               private formBuilder: FormBuilder){
 

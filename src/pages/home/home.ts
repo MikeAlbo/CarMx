@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, reorderArray, ModalController, FabContainer} from 'ionic-angular';
 
-import {DataService, FuelService, UserApi} from '../../services/services';
-import {AddFuelModal, AlertsPage, MaintenancePage} from '../pages';
-import {SettingsPage} from "../settings/settingsPage";
+import {UserApi, VehicleApi,ProviderApi} from '../../services/services';
+import {AddFuelModal, AlertsPage, MaintenancePage, SettingsPage} from '../pages';
+
 
 @Component({
   selector: 'page-home',
@@ -43,12 +43,12 @@ export class HomePage {
 
 
   constructor(public navCtrl: NavController,
-              public dataApi: DataService,
               private modalCtrl: ModalController,
-              private fuelApi: FuelService,
-              private userApi: UserApi) {
+              private userApi: UserApi,
+              private vehicleApi: VehicleApi,
+              private providerApi: ProviderApi) {
 
-    this.otherData = this.fuelApi.fakeData;
+    //this.otherData = this.fuelApi.fakeData;
 
   }
 
@@ -80,7 +80,7 @@ export class HomePage {
 
 
   showSettingsPage() {
-    //this.navCtrl.push(SettingsPage, {newUser: true});
+    this.navCtrl.push(SettingsPage, {newUser: true});
     }
 }
 
