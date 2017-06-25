@@ -5,8 +5,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
 import {EmailValidator, PasswordValidator} from '../../validators/validators';
-import {LoginModal} from '../pages';
-import {SettingsPage} from "../settings/settingsPage";
+import {LoginModal, SettingsPage, HomePage} from '../pages';
+
 
 @Component({
   selector: 'auth-modal',
@@ -59,8 +59,9 @@ export class AuthModal {
 
   loginViaGoogle(){
     this.AfAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((user)=> {
+      console.log("user: ", user);
       this.dismissModal();
-    } );
+    });
   }
 
   registeruser(){

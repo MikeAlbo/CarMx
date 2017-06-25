@@ -17,20 +17,38 @@
  <ion-slides pager="true">
    <ion-slide>
      <ion-list>
+       <ion-item-divider>
+         <p float-start >User Info</p>
+       </ion-item-divider>
        <form [formGroup]="settingForm">
          <ion-item>
-           <ion-label>Name: </ion-label>
+           <ion-label>Name:</ion-label>
            <ion-input type="text" formControlName="name"></ion-input>
          </ion-item>
-         <ion-item>
+          <ion-item>
            <ion-label>Email: </ion-label>
-           <ion-input [disabled]="emailDisabled" type="text" formControlName="email" placeholder="{{this.dataApi.currentUser.email}}"></ion-input>
+           <ion-input [disabled]="emailDisabled" type="text" formControlName="email" placeholder="{{emailPlaceholder}}"></ion-input>
          </ion-item>
-         <ion-item>
-           <p text-center>password reset, notifications, delete data</p>
-         </ion-item>
-         <button ion-button block  type="submit" (click)="submitSettingsForm()">{{newUser ? "Add Info" : "Update Info"}}</button>
        </form>
+         <ion-item-divider>
+           <p float-start >Reset Password</p>
+         </ion-item-divider>
+         <form [formGroup]="resetPasswordForm">
+           <ion-item>
+             <ion-label>Old Password: </ion-label>
+             <ion-input type="password" formControlName="oldPassword"></ion-input>
+           </ion-item>
+           <ion-item>
+             <ion-label>New Password: </ion-label>
+             <ion-input type="password" formControlName="newPassword"></ion-input>
+           </ion-item>
+           <ion-item>
+             <ion-label>Confirm Password: </ion-label>
+             <ion-input type="password" formControlName="confirmPassword"></ion-input>
+           </ion-item>
+         </form>
+         <button ion-button block  type="submit" (click)="submitSettingsForm()">{{newUser ? "Add Info" : "Update Info"}}</button>
+
 
        <button ion-button clear icon-right text-center (click)="changeSlide()">
          Vehicles

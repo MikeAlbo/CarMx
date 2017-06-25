@@ -18,10 +18,12 @@ export class SettingsPage {
 
   newUser: boolean = false;
   emailDisabled: boolean = true;
+  emailPlaceholder = "boom";
 
   userVehicles;
 
   settingForm : FormGroup;
+  resetPasswordForm: FormGroup;
 
   constructor(private nacCtrl: NavController,
               private navParams: NavParams,
@@ -36,7 +38,13 @@ export class SettingsPage {
       email: ['']
     });
 
-    //this.newUser = navParams.data.newUser;
+    this.resetPasswordForm = formBuilder.group({
+      oldPassword: [''],
+      newPassword: [''],
+      confirmPassword: ['']
+    });
+
+    //this.emailPlaceholder = navParams.data.email;
 
     if(this.userApi.currentUser){
       this.emailDisabled = true;
@@ -58,12 +66,6 @@ export class SettingsPage {
     console.log(currentIndex);
   }
 
-  addNewVehicle(){
 
-  }
-
-  submitNewVehicle(){
-
-  }
 
 }

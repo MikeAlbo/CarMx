@@ -30,4 +30,8 @@ export class AddFuelModal {
   dismissModal(){
     this.viewCtrl.dismiss();
   }
+
+  addfFuel(){
+
+  }
 }// export

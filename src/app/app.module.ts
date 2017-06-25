@@ -11,7 +11,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { MyApp } from './app.component';
 import { HomePage, LandingPage, SettingsPage, AuthModal, LoginModal, ServiceProviderPage, AlertsPage, MaintenancePage, FuelPage, AddFuelModal} from '../pages/pages';
-import {VehicleInfo, VehicleApi, ProviderApi, UserApi} from '../services/services';
+import {VehicleInfo, VehicleApi, ProviderApi, UserApi, AuthApi} from '../services/services';
 
 @NgModule({
   declarations: [
@@ -55,6 +55,7 @@ import {VehicleInfo, VehicleApi, ProviderApi, UserApi} from '../services/service
     VehicleApi,
     UserApi,
     ProviderApi,
+    AuthApi,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
