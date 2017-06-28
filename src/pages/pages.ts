@@ -8,6 +8,7 @@ export * from './maintenance/maintenancePage';
 export * from './serviceProvider/serviceProviderPage';
 export * from './fuel/fuelPage';
 export * from './addFuel/addFuelModal';
+export * from './vehicleDetails/vehicleDetailsPage';
 
 
 

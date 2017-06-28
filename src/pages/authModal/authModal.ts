@@ -1,8 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController, Slides, ViewController, ModalController} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
+
+import {AuthApi} from '../../services/services';
 
 import {EmailValidator, PasswordValidator} from '../../validators/validators';
 import {LoginModal, SettingsPage, HomePage} from '../pages';
@@ -24,7 +24,7 @@ export class AuthModal {
 
   constructor(private navCtrl: NavController,
               private viewCtrl: ViewController,
-              private AfAuth: AngularFireAuth,
+              private authApi: AuthApi,
               public formBuilder: FormBuilder,
               private modalCtrl: ModalController){
 
@@ -58,26 +58,19 @@ export class AuthModal {
   }
 
   loginViaGoogle(){
-    this.AfAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((user)=> {
-      console.log("user: ", user);
-      this.dismissModal();
-    });
+    this.authApi.authViaGoogle().then(()=> this.dismissModal()).catch(err => console.log(err));
   }
 
   registeruser(){
     this.submitAttempt = true;
 
     if(this.registerForm.valid){
-      this.AfAuth.auth.createUserWithEmailAndPassword(this.registerForm.controls.email.value, this.registerForm.controls.password.value)
-        .then((user)=> {
-          console.log(user); // !! remove before production !!
-          this.dismissModal();
-          this.onSuccessSubmission();
-        })
-        .catch((err)=> {
-          console.log(`error name: ${err.name}, error message: ${err.message}.`);
-          this.errorMessage = err.message;
-        }); // handle err
+      this.authApi.registerViaEmail(this.registerForm.controls.email.value, this.registerForm.controls.password.value).then(()=>{
+        this.dismissModal();
+        this.onSuccessSubmission();
+      }).catch((err)=> {
+        console.log(err);
+      })
     } else {
       console.log("there seems to be an error with the form.");
     }

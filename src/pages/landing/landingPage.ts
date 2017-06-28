@@ -1,10 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController, Slides, ModalController, AlertController} from 'ionic-angular';
-// import { Observable } from 'rxjs/Observable';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
+
 
 import {AuthModal, LoginModal} from '../pages';
+import {AuthApi} from "../../services/services";
 
 @Component({
   selector: 'page-landing',
@@ -20,7 +19,7 @@ userCredentials = {email:null, password: null};
   constructor(private navCtrl: NavController,
               private modalCtrl: ModalController,
               private alertCtrl: AlertController,
-              private AfAuth: AngularFireAuth){
+              private authApi: AuthApi){
 
   }
 
@@ -46,8 +45,7 @@ userCredentials = {email:null, password: null};
     });
 
     alert.present();
-    // this.authApi.loginAnonymously();
-    firebase.auth().signInAnonymously();
+    this.authApi.createAnonymousAccount().catch(err => console.log(err));
   }
 
 

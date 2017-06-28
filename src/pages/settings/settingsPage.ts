@@ -1,8 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, NavParams, LoadingController, Slides} from 'ionic-angular';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import {NavController, NavParams, LoadingController, Slides, ModalController} from 'ionic-angular';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 
-import {UserApi, VehicleApi, VehicleInfo} from '../../services/services';
+import {UserApi, VehicleApi, VehicleInfo, AuthApi} from '../../services/services';
+import {AngularFireAuth} from "angularfire2/auth";
+import {EmailValidator} from '../../validators/validators';
+import {VehicleDetailsPage} from '../pages';
 
 
 @Component({
@@ -21,6 +24,12 @@ export class SettingsPage {
   emailPlaceholder = "boom";
 
   userVehicles;
+  currentUser;
+  providers = {
+    google: false,
+    facebook: false,
+    email: false
+  };
 
   settingForm : FormGroup;
   resetPasswordForm: FormGroup;
@@ -28,14 +37,28 @@ export class SettingsPage {
   constructor(private nacCtrl: NavController,
               private navParams: NavParams,
               private loadingCtrl: LoadingController,
+              private modalCtrl: ModalController,
               private formBuilder: FormBuilder,
-              private userApi: UserApi,
+              public userApi: UserApi,
               private vehicleApi: VehicleApi,
-              public vehicleInfo: VehicleInfo){
+              public vehicleInfo: VehicleInfo,
+              private authApi: AuthApi,
+              private fireAuth: AngularFireAuth){
+
+    this.fireAuth.authState.subscribe((user)=>{
+      this.currentUser = user;
+
+      user.providerData.forEach((provider)=>{
+        if(provider.providerId == 'google.com') {this.providers.google = true}
+        else if (provider.providerId == 'facebook.com') {this.providers.facebook = true}
+        else if (provider.providerId == 'password') {this.providers.email = true}
+
+      });
+    });
 
     this.settingForm = formBuilder.group({
-      name: [''],
-      email: ['']
+      displayName: ['', Validators.compose([Validators.minLength(6)])],
+      email: ['', Validators.compose([EmailValidator.isValid])]
     });
 
     this.resetPasswordForm = formBuilder.group({
@@ -50,6 +73,9 @@ export class SettingsPage {
       this.emailDisabled = true;
       //this.userVehicles = this.dataApi.currentUserData['/vehicles'];
     }
+
+
+
   }
 
   submitSettingsForm(){
@@ -66,6 +92,12 @@ export class SettingsPage {
     console.log(currentIndex);
   }
 
+  showVehicleDetails(vehicle){
+    if(!vehicle){
+      let modal = this.modalCtrl.create(VehicleDetailsPage);
+      modal.present();
+    }
+  }
 
 
 }

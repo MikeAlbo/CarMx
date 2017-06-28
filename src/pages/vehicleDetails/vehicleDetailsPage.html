@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-buttons end>
+      <button ion-button clear icon-only>
+        <ion-icon name="settings" color="dark"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Car MX | {{addVehicle ? "new vehicle" : "vehicle details"}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-row *ngIf="!addVehicle" text-center>
+    <ion-col *ngIf="!vehiclePhoto">
+      <ion-icon name="car"></ion-icon>
+      <h2>Vehicle Name</h2>
+    </ion-col>
+  </ion-row>
+  <ion-list>
+    <ion-list-header>
+      <span item-start>The details</span>
+      <button color="{{formEnabled ? 'danger': 'primary'}}" item-end ion-button small clear (click)="enableForm()">{{formEnabled ? "cancel" : "edit"}}</button>
+    </ion-list-header>
+    <form [formGroup]="vehicleForm">
+      <ion-item>
+        <ion-label>Year:</ion-label>
+        <ion-select formControlName="year" placeholder="select year">
+          <ion-option *ngFor="let year of this.vehicleInfo.years" value="{{year}}">{{year}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Make:</ion-label>
+        <ion-select formControlName="make" placeholder="select make">
+          <ion-option *ngFor="let make of this.vehicleInfo.make" value="{{make}}">{{make}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Model:</ion-label>
+        <ion-input formControlName="model" type="text" placeholder="enter model, example: Prius"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Odometer:</ion-label>
+        <ion-input formControlName="odometer" type="text" placeholder="95000"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Vehicle Name:</ion-label>
+        <ion-input formControlName="vehicleName" type="text" placeholder="Fred, the car"></ion-input>
+      </ion-item>
+    </form>
+    <button [disabled]="vehicleForm.invalid || vehicleForm.disabled" ion-button block type="submit" (click)="submitVehicleForm()" outline>{{addVehicle ? "Add Vehicle" : "Update Vehicle"}}</button>
+  </ion-list>
+  <ion-row *ngIf="!addVehicle" text-center>
+    <ion-col>
+      <button ion-button icon-left color="secondary" outline>
+        <ion-icon name="add-circle-outline"></ion-icon>
+        Schedule Maintenance
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-left color="danger" outline>
+        <ion-icon name="alert-outline"></ion-icon>
+        Alerts (3)
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-content>

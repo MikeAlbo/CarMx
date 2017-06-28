@@ -1,16 +1,32 @@
 import {Injectable} from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import {FirebaseObjectObservable} from "angularfire2/database";
 import * as firebase from 'firebase/app';
 
 @Injectable()
 
 export class AuthApi {
 
-  authenticatedUser: FirebaseObjectObservable<any>;
+  // public authenticatedUser = {
+  //   email: null,
+  //   displayName: null,
+  //   photoURL: null,
+  //   providers: []
+  // };
+
+  public  authenticatedUser = {
+    email: null, photoURL: null, displayName: null, providers: null
+  };
 
   constructor(private authService: AngularFireAuth){
-
+      this.authService.authState.subscribe((user)=>{
+        if(user){
+          this.authenticatedUser.email = user.email;
+          this.authenticatedUser.photoURL = user.photoURL;
+          this.authenticatedUser.displayName = user.displayName;
+          this.authenticatedUser.providers = user.providerData;
+          console.log("authenticated user from service layer: ", this.authenticatedUser); //remove
+        }
+      });
   }// constructor
 
   // login via email and password
@@ -62,7 +78,7 @@ export class AuthApi {
   }
 
   // add email and password to a provider created account
-  addEmailandPassToProviderAccount(email: string, password: string){
+  addEmailAndPassToProviderAccount(email: string, password: string){
     return new Promise((resolve, reject)=>{
       let credential = firebase.auth.EmailAuthProvider.credential(email, password);
 
@@ -132,6 +148,11 @@ export class AuthApi {
       let currentUser = this.authService.auth.currentUser;
       currentUser.delete().then(()=>resolve(true)).catch(err => reject(err));
     });
+  }
+
+  // get current user
+  getCurrentUser(){
+    return this.authenticatedUser;
   }
 
 
