@@ -17,7 +17,7 @@ export class MyApp {
 
   vehicles: Array<{title: string, component: any}>;
 
-  currentUser;
+  public currentUser;
 
 
   rootPage:any;

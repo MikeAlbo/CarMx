@@ -7,15 +7,14 @@ class VehicleInfo {
 
 
   public odometerParse(input){
-    return new Promise((resolve, reject)=>{
       let intRegex = /,|.|^\d+$|/;
 
       if(intRegex.test(input)){
-         resolve(input.replace(/[,|.]/g , ""));
+         return (input.replace(/[,|.]/g , ""));
       } else {
-        reject('hey, the odometer must only contain numbers between 0-9 ')
+        return null;
       }
-  }) }
+  };
 
 }
 

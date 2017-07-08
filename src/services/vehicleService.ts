@@ -1,30 +1,37 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase, FirebaseObjectObservable} from 'angularfire2/database';
+import * as firebase from 'firebase/app';
 
 import {UserApi} from './services';
+import {VehicleInfo} from '../services/vehicleInfo';
 
 @Injectable()
 
 export class VehicleApi {
 
-  currentVehicle: FirebaseObjectObservable<any>;
+  public currentVehicle;
   ref = `/vehicles/`;
 
-  constructor(private userApi: UserApi, private db: AngularFireDatabase){
+  constructor(private userApi: UserApi, private db: AngularFireDatabase, private  vehicleInfo: VehicleInfo){
 
   }// constructor
 
   // set the current vehicle
-  setCurrentVehicle(vehicleId: string){
-    this.currentVehicle = this.db.object(`${this.ref}/${vehicleId}`);
+  setCurrentVehicle(vehicleId: any){
+    console.log("setting current vehicle");
+    this.db.object(`${this.ref}/${vehicleId}`).subscribe((vehicle)=> {
+      this.currentVehicle = vehicle;
+      console.log(this.currentVehicle);
+    });
+
   }
 
   // a user can add a new vehicle
-  createNewVehicle(vehicle: object){
+  createNewVehicle(vehicle){
     return new Promise((resolve, reject)=>{
       let key = firebase.database().ref().child('vehicles').push().key;
       this.db.object(`${this.ref}/${key}/`).set(vehicle).then(()=>{
-        resolve(true);
+        resolve(key);
       }).catch(err => reject(err));
     });
   }

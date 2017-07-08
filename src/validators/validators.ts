@@ -49,5 +49,17 @@ class IntValidator {
   }
 }
 
+class OdometerValidator {
+  static  isCorrectFormat(control: FormControl): any {
+    const odometerRegex = /,|.|^\d+$|/;
 
-export {EmailValidator, PasswordValidator, IntValidator};
+    if(odometerRegex.test(control.value)){
+      return null;
+    } else {
+      return {"check your odometer input, make sure it only contains numbers. " : true}
+    }
+  }
+}
+
+
+export {EmailValidator, PasswordValidator, IntValidator, OdometerValidator};

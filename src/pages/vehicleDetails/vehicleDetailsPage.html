@@ -1,11 +1,8 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
     <ion-buttons end>
-      <button ion-button clear icon-only>
-        <ion-icon name="settings" color="dark"></ion-icon>
+      <button ion-button clear icon-only (click)="modalDismiss()">
+        <ion-icon name="close" color="dark"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>
@@ -55,16 +52,17 @@
   </ion-list>
   <ion-row *ngIf="!addVehicle" text-center>
     <ion-col>
-      <button ion-button icon-left color="secondary" outline>
+      <button ion-button icon-left color="secondary" outline (click)="navigateTo('mx')">
         <ion-icon name="add-circle-outline"></ion-icon>
         Schedule Maintenance
       </button>
     </ion-col>
     <ion-col>
-      <button ion-button icon-left color="danger" outline>
+      <button ion-button icon-left color="danger" outline (click)="navigateTo('alert')">
         <ion-icon name="alert-outline"></ion-icon>
         Alerts (3)
       </button>
     </ion-col>
   </ion-row>
+  <button ion-button block outline color="danger" (click)="deleteVehicle()">Delete Vehicle</button>
 </ion-content>

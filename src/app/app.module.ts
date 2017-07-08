@@ -12,6 +12,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MyApp } from './app.component';
 import { HomePage, LandingPage, SettingsPage, AuthModal, LoginModal, ServiceProviderPage, AlertsPage, MaintenancePage, FuelPage, AddFuelModal, VehicleDetailsPage} from '../pages/pages';
 import {VehicleInfo, VehicleApi, ProviderApi, UserApi, AuthApi} from '../services/services';
+//import {VehicleSchema, DetailedVehicleSchema} from'../schemas/schemas';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,8 @@ import {VehicleInfo, VehicleApi, ProviderApi, UserApi, AuthApi} from '../service
     VehicleApi,
     UserApi,
     ProviderApi,
+    // VehicleSchema,
+    // DetailedVehicleSchema,
     AuthApi,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
