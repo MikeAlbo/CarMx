@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import {AngularFireDatabase} from 'angularfire2/database';
+import {AngularFireDatabase, FirebaseObjectObservable} from 'angularfire2/database';
+//import {Observable} from 'rxjs/observable';
 
 import {VehicleApi} from './services'
 
@@ -10,19 +11,27 @@ export class UserApi {
 
   public currentUser;
   private ref;
-  public currentUserDetails;
+  public currentUserDetails$;
+  // public userDataObservable;
+  // public getCurrentUserDataFromObservable;
 
   constructor(public authApi: AngularFireAuth, private db : AngularFireDatabase){
+
+    // this.userDataObservable = Observable.create((observer)=>{
+    //   this.getCurrentUserDataFromObservable = observer;
+    // });
 
       authApi.authState.subscribe((user)=>{
         this.currentUser = user ? user: null;
         this.ref = `/users/${this.currentUser.uid}/`;
-        db.object(`/users/${this.currentUser.uid}/`).subscribe((user) => {
-          this.currentUserDetails = user;
-          console.log("vehicleID: ", user);
-        })
+        this.currentUserDetails$ = db.object(`/users/${this.currentUser.uid}/`);
+          // this.getCurrentUserDataFromObservable.onNext(this.currentUserDetails);
+          //console.log("currentUserDetails: ", this.currentUserDetails);
       });
+
+
   } // constructor
+
 
 
 

@@ -8,8 +8,8 @@
   <ion-content>
     <ion-list>
       <ion-item-divider></ion-item-divider>
-      <ion-item-group *ngFor="let vech of vehicles">
-        <button menuClose ion-item >{{vech.title}}</button>
+      <ion-item-group *ngFor="let vehicle of vehicles | keyValue ">
+        <button menuClose ion-item (click)=selectVehicle(vehicle.key)>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}}</button>
       </ion-item-group>
       <button menuClose ion-button clear block icon-only > <ion-icon name="add" color="secondary"></ion-icon></button>
       <ion-item-divider></ion-item-divider>

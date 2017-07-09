@@ -21,7 +21,7 @@ export class VehicleApi {
     console.log("setting current vehicle");
     this.db.object(`${this.ref}/${vehicleId}`).subscribe((vehicle)=> {
       this.currentVehicle = vehicle;
-      console.log(this.currentVehicle);
+      //console.log(this.currentVehicle);
     });
 
   }

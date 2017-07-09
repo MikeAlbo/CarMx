@@ -12,6 +12,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MyApp } from './app.component';
 import { HomePage, LandingPage, SettingsPage, AuthModal, LoginModal, ServiceProviderPage, AlertsPage, MaintenancePage, FuelPage, AddFuelModal, VehicleDetailsPage} from '../pages/pages';
 import {VehicleInfo, VehicleApi, ProviderApi, UserApi, AuthApi} from '../services/services';
+import {KeyValuePipe} from '../pipes/pipes';
 //import {VehicleSchema, DetailedVehicleSchema} from'../schemas/schemas';
 
 @NgModule({
@@ -27,7 +28,8 @@ import {VehicleInfo, VehicleApi, ProviderApi, UserApi, AuthApi} from '../service
     AlertsPage,
     FuelPage,
     AddFuelModal,
-    VehicleDetailsPage
+    VehicleDetailsPage,
+    KeyValuePipe
   ],
   imports: [
     BrowserModule,

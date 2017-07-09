@@ -4,9 +4,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import {LandingPage, HomePage, AlertsPage, ServiceProviderPage, MaintenancePage, SettingsPage, FuelPage} from '../pages/pages';
-
-import {} from '../services/services';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {UserApi} from '../services/services';
+
+import {FirebaseObjectObservable} from "angularfire2/database";
+
+
 
 @Component({
   templateUrl: 'app.html'
@@ -15,38 +18,43 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
 
-  vehicles: Array<{title: string, component: any}>;
+  //vehicles: Array<{title: string, component: any}>;
 
-  public currentUser;
-
+  vehicles;
+  currentUserKey;
+  currentUserData;
 
   rootPage:any;
 
-  constructor(public platform: Platform,  public statusBar: StatusBar, public  splashScreen: SplashScreen, public authApi: AngularFireAuth) {
+  constructor(public platform: Platform,  public statusBar: StatusBar, public  splashScreen: SplashScreen, public authApi: AngularFireAuth, public userApi: UserApi) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
 
-      authApi.authState.subscribe((user)=>{
-        if(user){
+      authApi.authState.subscribe((user) => {
+        if (user) {
           this.rootPage = HomePage;
-          this.currentUser = user;
+
+          this.userApi.currentUserDetails$.subscribe((userData)=>{
+            if(userData){
+              this.vehicles = userData.vehicles;
+              this.currentUserKey = userData.$key;
+            } else {
+              this.vehicles = {1: {year: 'No', make: 'Vehicle', model: 'Data'}}
+            }
+
+          })
 
         } else {
           this.rootPage = LandingPage;
         }
-      })
+      });
+      
+    });  };
 
-    });
 
-
-    this.vehicles = [
-      { title: '2006 BMW 325 xi', component: HomePage },
-      { title: '2012 Toyota Prius', component: HomePage}
-    ];
-  }
 
   selectPage(page){
     switch (page) {
@@ -59,6 +67,10 @@ export class MyApp {
       case "logOut" : this.authApi.auth.signOut(); break;
       default: this.nav.setRoot(HomePage); break;
     }
+  }
+
+  selectVehicle(vehicleKey){
+    console.log("selected key: ", vehicleKey);
   }
 
 
