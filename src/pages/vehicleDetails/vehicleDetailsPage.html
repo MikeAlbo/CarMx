@@ -64,5 +64,5 @@
       </button>
     </ion-col>
   </ion-row>
-  <button ion-button block outline color="danger" (click)="deleteVehicle()">Delete Vehicle</button>
+  <button ion-button block outline color="danger" *ngIf="!addVehicle" (click)="deleteVehicle()">Delete Vehicle</button>
 </ion-content>

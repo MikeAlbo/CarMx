@@ -20,18 +20,18 @@ class VehicleSchema {
 }
 //
 //
-class DetailedVehicleSchema extends  VehicleSchema {
+class AddNewVehicleSchema extends  VehicleSchema {
 
   public dateUpdated: Date;
-  protected dateInitialized: Date;
+  protected dateInitialized?: Date;
   public odometer: string;
 
 
-  constructor({params, date, odometer}){
+  constructor({params, dateUpdated, dateInit, odometer}){
     super(params);
 
-    this.dateUpdated = date;
-    this.dateInitialized = date;
+    this.dateUpdated = dateUpdated;
+    this.dateInitialized = dateInit;
     this.odometer = odometer;
 
     console.log("dateUpdated: ", this.dateUpdated);
@@ -39,4 +39,21 @@ class DetailedVehicleSchema extends  VehicleSchema {
   }
 }
 
-export {VehicleSchema, DetailedVehicleSchema}
+class UpdateVehicleSchema extends  VehicleSchema {
+
+  public dateUpdated: Date;
+  public odometer: string;
+
+
+  constructor({params, dateUpdated, odometer}){
+    super(params);
+
+    this.dateUpdated = dateUpdated;
+    this.odometer = odometer;
+
+    console.log("dateUpdated: ", this.dateUpdated);
+
+  }
+}
+
+export {VehicleSchema, AddNewVehicleSchema, UpdateVehicleSchema}

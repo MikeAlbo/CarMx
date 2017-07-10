@@ -17,16 +17,12 @@ export class UserApi {
 
   constructor(public authApi: AngularFireAuth, private db : AngularFireDatabase){
 
-    // this.userDataObservable = Observable.create((observer)=>{
-    //   this.getCurrentUserDataFromObservable = observer;
-    // });
 
       authApi.authState.subscribe((user)=>{
         this.currentUser = user ? user: null;
         this.ref = `/users/${this.currentUser.uid}/`;
         this.currentUserDetails$ = db.object(`/users/${this.currentUser.uid}/`);
-          // this.getCurrentUserDataFromObservable.onNext(this.currentUserDetails);
-          //console.log("currentUserDetails: ", this.currentUserDetails);
+
       });
 
 
@@ -81,8 +77,14 @@ export class UserApi {
     })
   }
 
+  // update a vehicle
+  updateVehicle(vehicleId: any, vehicleSchema: object):void{
+    let promise = this.db.object(`${this.ref}/vehicles/${vehicleId}`).update(vehicleSchema);
+    promise.catch(err => console.log(err));
+  }
+
   // delete a vehicle
-  deleteAVehicle(vehicleKey: string){
+  deleteVehicle(vehicleKey: string){
     return new Promise((resolve, reject)=>{
       this.db.object(`${this.ref}/vehicles/${vehicleKey}`).remove().then(()=>{
         resolve(true);

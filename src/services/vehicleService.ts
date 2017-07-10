@@ -14,6 +14,14 @@ export class VehicleApi {
 
   constructor(private userApi: UserApi, private db: AngularFireDatabase, private  vehicleInfo: VehicleInfo){
 
+    this.userApi.currentUserDetails$.subscribe((user)=>{
+      if(user){
+        this.setCurrentVehicle(user.currentVehicle)
+      } else {
+        this.currentVehicle = null;
+      }
+    })
+
   }// constructor
 
   // set the current vehicle

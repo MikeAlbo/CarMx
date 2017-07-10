@@ -1,13 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Platform, Nav, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import {LandingPage, HomePage, AlertsPage, ServiceProviderPage, MaintenancePage, SettingsPage, FuelPage} from '../pages/pages';
+import {LandingPage, HomePage, AlertsPage, ServiceProviderPage, MaintenancePage, SettingsPage, FuelPage, VehicleDetailsPage} from '../pages/pages';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {UserApi} from '../services/services';
 
-import {FirebaseObjectObservable} from "angularfire2/database";
 
 
 
@@ -20,13 +19,11 @@ export class MyApp {
 
   //vehicles: Array<{title: string, component: any}>;
 
-  vehicles;
-  currentUserKey;
-  currentUserData;
-
+  vehicles: any;
+  currentUserKey: string;
   rootPage:any;
 
-  constructor(public platform: Platform,  public statusBar: StatusBar, public  splashScreen: SplashScreen, public authApi: AngularFireAuth, public userApi: UserApi) {
+  constructor(public platform: Platform,  public statusBar: StatusBar, public  splashScreen: SplashScreen, public authApi: AngularFireAuth, public userApi: UserApi, public modalCtrl: ModalController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -47,11 +44,12 @@ export class MyApp {
 
           })
 
+
         } else {
           this.rootPage = LandingPage;
         }
       });
-      
+
     });  };
 
 
@@ -71,6 +69,12 @@ export class MyApp {
 
   selectVehicle(vehicleKey){
     console.log("selected key: ", vehicleKey);
+  }
+
+  addNewVehicle(){
+    let modal = this.modalCtrl.create(VehicleDetailsPage, {newVehicle: true});
+    modal.present();
+
   }
 
 

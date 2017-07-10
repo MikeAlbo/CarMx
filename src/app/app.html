@@ -8,10 +8,13 @@
   <ion-content>
     <ion-list>
       <ion-item-divider></ion-item-divider>
-      <ion-item-group *ngFor="let vehicle of vehicles | keyValue ">
-        <button menuClose ion-item (click)=selectVehicle(vehicle.key)>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}}</button>
+      <ion-item-group *ngIf="vehicles">
+        <button menuClose ion-item *ngFor="let vehicle of vehicles | keyValue " (click)=selectVehicle(vehicle.key)>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}}</button>
       </ion-item-group>
-      <button menuClose ion-button clear block icon-only > <ion-icon name="add" color="secondary"></ion-icon></button>
+      <ion-item-group *ngIf="!vehicles">
+        <ion-item text-center><h3>Add a vehicle</h3></ion-item>
+      </ion-item-group>
+      <button menuClose ion-button clear block icon-only (click)="addNewVehicle()" > <ion-icon name="add" color="secondary"></ion-icon></button>
       <ion-item-divider></ion-item-divider>
       <ion-item-group>
         <button menuClose ion-item (click)="selectPage('home')">Home</button>
